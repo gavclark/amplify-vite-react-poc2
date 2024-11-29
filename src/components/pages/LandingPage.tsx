@@ -11,9 +11,12 @@ import { useState } from 'react';
 import KPICreateDefinitions from './CreateKPIDefinitions';
 import KPIUpdateDefinitions from './UpdateKPIDefinitions';
 import KPIListDefinitions from './ListKPIDefinitions';
+import KPIListValues from './ListKPIValues';
+import KPIUpdateValues from './UpdateKPIValues';
+import KPICreateValues from './CreateKPIValues';
 
 // Create an enum or type for the active page
-type ActivePage = 'none' | 'cKPIDef' | 'uKPIDef' | 'lKPIDef';
+type ActivePage = 'none' | 'cKPIDef' | 'uKPIDef' | 'lKPIDef' | 'cKPIVal' | 'uKPIVal' | 'lKPIVal';
 
 function LandingPage(): JSX.Element {
     const [activePage, setActivePage] = useState<ActivePage>('none');
@@ -28,6 +31,12 @@ function LandingPage(): JSX.Element {
                 return <KPIUpdateDefinitions onClose={() => setActivePage('none')} />;
             case 'lKPIDef':
                 return <KPIListDefinitions onClose={() => setActivePage('none')} />;
+            case 'cKPIVal':
+                return <KPICreateValues onClose={() => setActivePage('none')} />;
+            case 'uKPIVal':
+                return <KPIUpdateValues onClose={() => setActivePage('none')} />;
+            case 'lKPIVal':
+                return <KPIListValues onClose={() => setActivePage('none')} />;
             default:
                 return <Heading level={2}>Welcome to KPI Management</Heading>;
         }
@@ -114,7 +123,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('Add KPI Values')}
+                            onClick={() => setActivePage('cKPIVal')}
                         >
                             Add KPI Values
                         </Button>
@@ -122,7 +131,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('Update KPI Values')}
+                            onClick={() => setActivePage('uKPIVal')}
                         >
                             Update KPI Values
                         </Button>
@@ -130,7 +139,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('List KPI Values')}
+                            onClick={() => setActivePage('lKPIVal')}
                         >
                             List KPI Values
                         </Button>
@@ -156,7 +165,8 @@ function LandingPage(): JSX.Element {
                 textAlign="center"
                 width="100%"
             >
-                <p>© 2024 KPI Management Application. All rights reserved.</p>
+                <p>{currentDate} © KPI Management Application. All rights reserved.</p>
+
             </View>
         </Grid>
     );
