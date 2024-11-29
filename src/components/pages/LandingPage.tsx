@@ -7,9 +7,16 @@ import {
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import KPICreateDefinitions from './CreateKPIDefinitions';
 
 function LandingPage(): JSX.Element {
+    const [showCreateKPI, setShowCreateKPI] = useState(false);
     const currentDate = format(new Date(), 'MMMM dd, yyyy');
+
+    // if (showCreateKPI) {
+    //     return <KPICreateDefinitions onClose={() => setShowCreateKPI(false)} />;
+    // }
 
     return (
         <Grid
@@ -76,7 +83,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('Create KPI Definition')}
+                            onClick={() => setShowCreateKPI(true)}
                         >
                             Create KPI Definition
                         </Button>
@@ -87,6 +94,14 @@ function LandingPage(): JSX.Element {
                             onClick={() => console.log('Update KPI Definition')}
                         >
                             Update KPI Definition
+                        </Button>
+
+                        <Button
+                            variation="primary"
+                            size="small"
+                            onClick={() => console.log('List KPI Defintions')}
+                        >
+                            List KPI Definitions
                         </Button>
 
                         <Button
@@ -104,6 +119,15 @@ function LandingPage(): JSX.Element {
                         >
                             Update KPI Values
                         </Button>
+
+                        <Button
+                            variation="primary"
+                            size="small"
+                            onClick={() => console.log('List KPI Values')}
+                        >
+                            List KPI Values
+                        </Button>
+
                     </Flex>
                 </View>
 
@@ -113,8 +137,11 @@ function LandingPage(): JSX.Element {
                     height="100%"
                     overflow="auto"
                 >
-                    <Heading level={2}>Welcome to KPI Management</Heading>
-                    {/* Add your main content here */}
+                    {showCreateKPI ? (
+                        <KPICreateDefinitions onClose={() => setShowCreateKPI(false)} />
+                    ) : (
+                        <Heading level={2}>Welcome to KPI Management</Heading>
+                    )}
                 </View>
             </Grid>
 
