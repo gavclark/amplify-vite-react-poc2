@@ -9,14 +9,29 @@ import '@aws-amplify/ui-react/styles.css';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import KPICreateDefinitions from './CreateKPIDefinitions';
+import KPIUpdateDefinitions from './UpdateKPIDefinitions';
+import KPIListDefinitions from './ListKPIDefinitions';
+
+// Create an enum or type for the active page
+type ActivePage = 'none' | 'cKPIDef' | 'uKPIDef' | 'lKPIDef';
 
 function LandingPage(): JSX.Element {
-    const [showCreateKPI, setShowCreateKPI] = useState(false);
+    const [activePage, setActivePage] = useState<ActivePage>('none');
     const currentDate = format(new Date(), 'MMMM dd, yyyy');
 
-    // if (showCreateKPI) {
-    //     return <KPICreateDefinitions onClose={() => setShowCreateKPI(false)} />;
-    // }
+    // Helper function to render the active page
+    const renderActivePage = () => {
+        switch (activePage) {
+            case 'cKPIDef':
+                return <KPICreateDefinitions onClose={() => setActivePage('none')} />;
+            case 'uKPIDef':
+                return <KPIUpdateDefinitions onClose={() => setActivePage('none')} />;
+            case 'lKPIDef':
+                return <KPIListDefinitions onClose={() => setActivePage('none')} />;
+            default:
+                return <Heading level={2}>Welcome to KPI Management</Heading>;
+        }
+    };
 
     return (
         <Grid
@@ -75,15 +90,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('Home')}
-                        >
-                            Home
-                        </Button>
-
-                        <Button
-                            variation="primary"
-                            size="small"
-                            onClick={() => setShowCreateKPI(true)}
+                            onClick={() => setActivePage('cKPIDef')}
                         >
                             Create KPI Definition
                         </Button>
@@ -91,7 +98,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('Update KPI Definition')}
+                            onClick={() => setActivePage('uKPIDef')}
                         >
                             Update KPI Definition
                         </Button>
@@ -99,7 +106,7 @@ function LandingPage(): JSX.Element {
                         <Button
                             variation="primary"
                             size="small"
-                            onClick={() => console.log('List KPI Defintions')}
+                            onClick={() => setActivePage('lKPIDef')}
                         >
                             List KPI Definitions
                         </Button>
@@ -137,11 +144,7 @@ function LandingPage(): JSX.Element {
                     height="100%"
                     overflow="auto"
                 >
-                    {showCreateKPI ? (
-                        <KPICreateDefinitions onClose={() => setShowCreateKPI(false)} />
-                    ) : (
-                        <Heading level={2}>Welcome to KPI Management</Heading>
-                    )}
+                    {renderActivePage()}
                 </View>
             </Grid>
 

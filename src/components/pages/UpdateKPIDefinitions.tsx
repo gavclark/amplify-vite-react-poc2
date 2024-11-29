@@ -5,11 +5,11 @@ import {
     Flex,
 } from '@aws-amplify/ui-react';
 
-interface KPICreateDefinitionsProps {
+interface KPIUpdateDefinitionsProps {
     onClose: () => void;
 }
 
-function KPICreateDefinitions({ onClose }: KPICreateDefinitionsProps): JSX.Element {
+function KPIUpdateDefinitions({ onClose }: KPIUpdateDefinitionsProps): JSX.Element {
     return (
         <Flex
             direction="column"
@@ -20,7 +20,7 @@ function KPICreateDefinitions({ onClose }: KPICreateDefinitionsProps): JSX.Eleme
                 padding="1rem"
                 backgroundColor="var(--amplify-colors-neutral-40)"
             >
-                <Heading level={2}>Create KPI Definition</Heading>
+                <Heading level={2}>Update KPI Definition</Heading>
             </View>
 
             {/* Main Content */}
@@ -54,4 +54,4 @@ function KPICreateDefinitions({ onClose }: KPICreateDefinitionsProps): JSX.Eleme
     );
 }
 
-export default KPICreateDefinitions;
+export default KPIUpdateDefinitions;
