@@ -1,16 +1,10 @@
-import { useState } from 'react'
-
 import './App.css'
+import LandingPage from './components/pages/LandingPage';
 
-function App() {
-
+function App(): JSX.Element {
   return (
-    <>
-      <div>
-        <h1>Hello World</h1>
-      </div>
-    </>
-  )
+    <LandingPage />
+  );
 }
 
-export default App
+export default App;
