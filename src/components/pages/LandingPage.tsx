@@ -38,7 +38,7 @@ function LandingPage(): JSX.Element {
             case 'lKPIVal':
                 return <KPIListValues onClose={() => setActivePage('none')} />;
             default:
-                return <Heading level={2}>Welcome to KPI Management</Heading>;
+                return <Heading level={1}>Welcome to KPI Management</Heading>;
         }
     };
 
@@ -59,23 +59,32 @@ function LandingPage(): JSX.Element {
                 color="white"
                 width="100%"
             >
-                <Flex
-                    direction="row"
+                <Grid
+                    templateColumns="1fr auto 1fr"
                     alignItems="center"
-                    justifyContent="space-between"
                     width="100%"
                 >
-                    <Heading level={1}>KPI Management Application</Heading>
+                    <View></View> {/* Empty column for spacing */}
                     <Heading
-                        level={3}
+                        level={1}
                         style={{
-                            marginLeft: '2rem',
-                            whiteSpace: 'nowrap'
-                        }}
-                    >
-                        {currentDate}
+                            color: 'white'
+                        }}>
+                        KPI Management Application
                     </Heading>
-                </Flex>
+                    <Flex justifyContent="flex-end">
+                        <Heading
+                            level={2}
+                            style={{
+                                whiteSpace: 'nowrap',
+                                fontSize: 'inherit',
+                                color: 'white'
+                            }}
+                        >
+                            {currentDate}
+                        </Heading>
+                    </Flex>
+                </Grid>
             </View>
 
             {/* Main Content Area with Sidebar */}
