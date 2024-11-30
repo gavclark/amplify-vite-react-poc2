@@ -7,11 +7,40 @@ specifies that any unauthenticated user can "create", "read", "update",
 and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  // table names  *** MUST *** Start with a capital !
+  KpiDefinition: a
     .model({
-      content: a.string(),
+      kpiCode: a.string().required(),
+      kpiArea: a.enum([
+        'Commercial',
+        'Customers',
+        'Financial',
+        'Operational',
+        'People',
+        'Safety',
+        'SpecialProjects',
+        'Sustainability'
+      ]),
+      kpiTitle: a.string().required(),
+      kpiDataType: a.enum(['WholeNumber', 'Decimal', 'Percentage', 'Date']),
+      kpiDescription: a.string().required(),
+      kpiCalculationExplanation: a.string().required(),
+      kpiCalculationDataPoints: a.string().required(),
+      kpiCalculationCategory: a.enum(['AggregationRequired', 'NoAggregationRequired']),
+      kpiDataGranularity: a.enum(['Group', 'Operating_Unit']),
+      kpiDataSource: a.enum(['BU', 'Central', 'OU']),
+      kpiFunctionalOwner: a.string(),
+      kpiTargets: a.string(),
+      kpiSource: a.string(),
+      kpiNotes: a.string(),
+      kpiValidFrom: a.date().default("2024-01-01"),
+      kpiValidTo: a.date().default("2060-12-31"),
+      kpiDashboardNotes: a.string(),
+      kpiTranslationRule: a.enum(['MonthEndRate', 'MonthlyAverage', 'None']),
+
     })
-    .authorization((allow) => [allow.guest()]),
+    .secondaryIndexes((index) => [index("kpiCode")])
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -28,7 +57,7 @@ Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
 WORK IN THE FRONTEND CODE FILE.)
 
-Using JavaScript or Next.js React Server Components, Middleware, Server 
+Using JavaScript or Next.js React Server Components, Middleware, Server
 Actions or Pages Router? Review how to generate Data clients for those use
 cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/
