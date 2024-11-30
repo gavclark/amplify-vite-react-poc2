@@ -21,6 +21,7 @@ type ActivePage = 'none' | 'cKPIDef' | 'uKPIDef' | 'lKPIDef' | 'cKPIVal' | 'uKPI
 function LandingPage(): JSX.Element {
     const [activePage, setActivePage] = useState<ActivePage>('none');
     const currentDate = format(new Date(), 'MMMM dd, yyyy');
+    const currentYear = format(currentDate, 'yyyy')
 
     // Helper function to render the active page
     const renderActivePage = () => {
@@ -174,7 +175,7 @@ function LandingPage(): JSX.Element {
                 textAlign="center"
                 width="100%"
             >
-                <p>{currentDate} © KPI Management Application. All rights reserved.</p>
+                <p>{currentYear} © KPI Management Application. All rights reserved.</p>
 
             </View>
         </Grid>
